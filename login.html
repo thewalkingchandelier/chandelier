@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+<script>
+function init() {
+var name = document.getElementById('name');
+var password = document.getElementById('password');
+var form = document.getElementById('form');
+var errorElement = document.getElementById('error');
+form.addEventListener('submit', (e) => {
+let messages = []
+if (name.value == '' || name.value == null)   {
+messages.push('Name is required')}
+
+if (password.value.length <= 8) {
+messages.push('Password must be longer than 8 characters.')
+}
+if (messages.length > 0) {
+errorElement.innerText = messages.join(' , ')
+}
+e.preventDefault()
+})
+if (password.value.length >= 20) {
+messages.push('Password must be less than 20 characters')
+}
+}
+
+
+</script>
+<style>
+body {
+display: flex;
+margin: auto;
+align-items: center;
+justify-content: center;
+}
+
+.form {
+	padding: 30px 40px;	
+}
+
+.form-control {
+	margin-bottom: 10px;
+	padding-bottom: 20px;
+	position: relative;
+}
+
+.form-control input {
+	border: 2px solid #f0f0f0;
+	border-radius: 4px;
+	display: block;
+	font-family: inherit;
+	font-size: 14px;
+	padding: 10px;
+	width: 100%;
+}
+</style>
+</head>
+<body onload="init()">
+  <div id="error"></div>
+  <form id="form" method="GET" class="form-control" action="/">
+    <div>
+      <label for="name">Name</label>
+      <input id="name" name="name" type="text" placeholder="Diana">
+    </div>
+  <div>
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" placeholder="Ap@ssword-44">
+    </div>
+    <button type="submit">Submit</button>
+  </form>
+</body>
+</html>

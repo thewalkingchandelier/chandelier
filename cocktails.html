@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style type="text/css">
+p {
+text-align: center;
+
+color: #000080;
+font-family: Comic Sans, Helvetica;
+}
+
+.main-content {
+	display: grid;
+    margin: auto;
+	height: auto;
+    width: 70%;
+    
+    align-items: center;
+    justify-content: center;
+   
+}
+.copy {
+	width: auto;
+}
+.ingredient {
+	width: auto;
+	margin: auto;
+}
+
+figcaption {
+color: #000080;
+font-family: Comic Sans, Helvetica;
+
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script>
+	
+
+function getCocktail() {
+var drink = document.getElementById("lit").value
+const data = null;
+
+const xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+	if (this.readyState === this.DONE) {
+		console.log(this.responseText);
+		const drinkObj = JSON.parse(this.responseText) //turn JSON parse from API into an object by assigning to variable
+		var drinkArr = [] //create empty array to display info
+		console.log(drinkObj)
+		var picArr = []
+		for (i = 0; i < 11; i++) { 
+		drinkArr.push(drinkObj.drinks[i].strDrink + "<br>")
+		console.log(drinkArr) // for loop using the push method to loop through JSON array to add the accessed information to the empty array
+		document.getElementById('drink-display').innerHTML = drinkArr.join(" ")
+		}
+		
+}
+	
+	
+	
+});
+
+xhr.open("GET", "https://the-cocktail-db.p.rapidapi.com/filter.php?i=" + drink);
+xhr.setRequestHeader("x-rapidapi-key", "809ea7668fmsh12ba5261e3fc8fap138bbfjsnb1864f44905d");
+xhr.setRequestHeader("x-rapidapi-host", "the-cocktail-db.p.rapidapi.com");
+xhr.withCredentials=false;
+xhr.send(data);
+}
+
+
+</script>
+</head>
+<body>
+  <div class="main-content">
+	<div class="copy">
+		<p>Feeling boozy? Search an alcohol base and get a list of cocktails with that ingredient.</p>
+	</div>
+	<div class="ingredient">Ingredient: <input type="text" id="lit">
+	  <figcaption>i.e. Tequila</figcaption>
+	  <button onclick="getCocktail()">It's Lit</button>
+	</div>
+	<div id="drink-display"></div>
+	<div id="details-display"></div>
+  </div>
+
+</body>
+</html>
